@@ -24,6 +24,9 @@ class Server
          String capitalizedSentence;
          ServerSocket welcomeSocket = new ServerSocket(6789);
 
+          /**
+           * Starting the Server
+           */
          while(true)
          {
             Socket connectionSocket = welcomeSocket.accept();
@@ -33,6 +36,9 @@ class Server
             clientSentence = inFromClient.readLine();
             logger.info("Received from client" + clientSentence);
 
+             /**
+              * Starting the unmarshalling and answering the client
+              */
             try {
               try {
                 JAXBContext jaxbContext = JAXBContext.newInstance(Student.class);
