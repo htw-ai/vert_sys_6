@@ -28,7 +28,6 @@ class TCPServer
 
                 Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
                 Student customer = (Student) jaxbUnmarshaller.unmarshal(clientSentence);
-
                 FileOutputStream fout = new FileOutputStream("c:\\address.ser");
                 ObjectOutputStream oos = new ObjectOutputStream(fout);
                 oos.writeObject(customer);
