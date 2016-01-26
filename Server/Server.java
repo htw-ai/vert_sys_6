@@ -1,16 +1,25 @@
-import java.io.*;
-import java.net.*;
-import java.io.File;
+package Server;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import java.io.*;
+import java.net.ServerSocket;
+import java.net.Socket;
 
-class TCPServer
+import Person.Student;
+import Person.Prof;
+
+/**
+ * The Class of the Server
+ * It waits for a Client to send a XML of a Student or a Prof validates it an stores the object
+ * if the xml is not valid it sends "error" to the client
+ */
+class Server
 {
+
    public static void main(String argv[]) throws Exception
       {
+          Logger logger = Logger.getInstance();
          String clientSentence;
          String capitalizedSentence;
          ServerSocket welcomeSocket = new ServerSocket(6789);
@@ -22,12 +31,11 @@ class TCPServer
                new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
             DataOutputStream outToClient = new DataOutputStream(connectionSocket.getOutputStream());
             clientSentence = inFromClient.readLine();
-             System.out.println(clientSentence);
+            logger.info("Received from client" + clientSentence);
 
             try {
               try {
                 JAXBContext jaxbContext = JAXBContext.newInstance(Student.class);
-
                 Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
                   StringReader reader = new StringReader(clientSentence);
                 Student customer = (Student) jaxbUnmarshaller.unmarshal(reader);
@@ -64,7 +72,7 @@ class TCPServer
               }
             } catch (IOException | JAXBException e) {
                 String error = "error" + '\n';
-              outToClient.writeBytes(error);
+                outToClient.writeBytes(error);
             }
 
          }
