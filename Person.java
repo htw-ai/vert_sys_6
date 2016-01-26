@@ -85,6 +85,20 @@ public class Person {
 	public void setId(int id) {
 		this.id = id;
 	}
+
+	public boolean personIsValid(){
+		if(
+				vorname != null &&
+						nachname != null &&
+						geburtsdatum  != null &&
+						strasse != null &&
+						(hausnummer <=0 || hausnummer >0 )&&
+						(plz <=0 || plz >0 )&&
+						stadt != null &&
+						(id <=0 || id >0 )
+				) return true;
+		else return false;
+	}
 }
 
 

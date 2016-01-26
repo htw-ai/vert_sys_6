@@ -16,5 +16,15 @@ public class Prof extends Person implements Serializable {
 	public void setFachbereich(String name) {
 		this.fachbereich = name;
 	}
+
+	public boolean profIsValid(){
+
+		if(
+				fachbereich != null &&
+						personIsValid()
+
+				) return true;
+		else return false;
+	}
 }
 

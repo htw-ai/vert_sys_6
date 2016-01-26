@@ -196,20 +196,7 @@ class Client {
 
     private void sendfailure() throws JAXBException {
 
-        Prof customer = new Prof();
-        customer.setId(12);
-        customer.setVorname("foo");
-        customer.setNachname("manchu");
-        customer.setStrasse("foo-street");
-        customer.setHausnummer(42);
-
-
-        java.io.StringWriter sw = new StringWriter();
-        JAXBContext jaxbContext = JAXBContext.newInstance(Prof.class);
-        Marshaller marshaller = jaxbContext.createMarshaller();
-        marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
-        marshaller.marshal(customer, sw);
-        String sentence = sw.toString();
+        String sentence = "<?xml version=\"1.0\"?> <foo xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"foo.xsd\">this is a test</foo>";
         try {
             sendData(sentence);
         } catch (IOException e) {

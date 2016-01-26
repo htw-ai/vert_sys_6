@@ -31,11 +31,17 @@ class TCPServer
                 Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
                   StringReader reader = new StringReader(clientSentence);
                 Student customer = (Student) jaxbUnmarshaller.unmarshal(reader);
-                FileOutputStream fout = new FileOutputStream("c:\\tmp\\address.ser");
-                ObjectOutputStream oos = new ObjectOutputStream(fout);
-                oos.writeObject(customer);
-                  String success = "success" + '\n';
-                outToClient.writeBytes(success);
+                  if(customer.studentIsValid()) {
+                      FileOutputStream fout = new FileOutputStream("c:\\tmp\\address.ser");
+                      ObjectOutputStream oos = new ObjectOutputStream(fout);
+                      oos.writeObject(customer);
+                      String success = "success" + '\n';
+                      outToClient.writeBytes(success);
+                  }
+                  else{
+                      String error = "error" + '\n';
+                      outToClient.writeBytes(error);
+                  }
               } catch (JAXBException e) {
                 JAXBContext jaxbContext = JAXBContext.newInstance(Prof.class);
 
@@ -43,11 +49,18 @@ class TCPServer
                   StringReader reader = new StringReader(clientSentence);
                 Prof prof = (Prof) jaxbUnmarshaller.unmarshal(reader);
 
-                FileOutputStream fout = new FileOutputStream("c:\\tmp\\address.ser");
-                ObjectOutputStream oos = new ObjectOutputStream(fout);
-                oos.writeObject(prof);
-                  String success = "success" + '\n';
-                  outToClient.writeBytes(success);
+                  if(prof.profIsValid()) {
+                      FileOutputStream fout = new FileOutputStream("c:\\tmp\\address.ser");
+                      ObjectOutputStream oos = new ObjectOutputStream(fout);
+                      oos.writeObject(prof);
+                      String success = "success" + '\n';
+                      outToClient.writeBytes(success);
+                  }
+                  else{
+                      String error = "error" + '\n';
+                      outToClient.writeBytes(error);
+                  }
+
               }
             } catch (IOException | JAXBException e) {
                 String error = "error" + '\n';

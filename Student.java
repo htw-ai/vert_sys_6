@@ -26,4 +26,15 @@ public class Student extends Person implements Serializable {
 	public void setSemester(int age) {
 		this.semester = age;
 	}
+
+	public boolean studentIsValid(){
+
+		if(
+				fach != null &&
+						(semester <=0 || id >0 ) &&
+						personIsValid()
+
+				) return true;
+		else return false;
+	}
 }
